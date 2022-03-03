@@ -29,11 +29,6 @@ export class KubernetesClient {
     public ConfigMap: KubeConfigMapClient = new KubeConfigMapClient(this.stdout);
     public PersistentVolume: KubePersistentVolumeClient = new KubePersistentVolumeClient(this.stdout);
     public PersistentVolumeClaim: KubePersistentVolumeClaimClient = new KubePersistentVolumeClaimClient(this.stdout);
-    // public ServiceAccount: KubeServiceAccountClient = new KubeServiceAccountClient(this.stdout);
-    // public Role: KubeRoleClient = new KubeRoleClient(this.stdout);
-    // public RoleBinding: KubeRoleBindingClient = new KubeRoleBindingClient(this.stdout);
-    // public ClusterRole: KubeClusterRoleClient = new KubeClusterRoleClient(this.stdout);
-    // public ClusterRoleBinding: KubeClusterRoleBindingClient = new KubeClusterRoleBindingClient(this.stdout);
     public Pod: KubePodClient = new KubePodClient(this.stdout);
     public ReplicationController: KubeReplicationControllerClient = new KubeReplicationControllerClient(this.stdout);
     public ReplicaSet: KubeReplicaSetClient = new KubeReplicaSetClient(this.stdout);
@@ -67,12 +62,4 @@ export class KubernetesClient {
         }
     }
 }
-
-// export class KubeServiceAccountClient extends KubeObjectClient<KubeServiceAccount>{ }
-// export class KubeRoleClient extends KubeObjectClient<KubeRole>{ }
-// export class KubeRoleBindingClient extends KubeObjectClient<KubeRoleBinding>{ }
-// export class KubeClusterRoleClient extends KubeObjectClient<KubeClusterRole>{ }
-// export class KubeClusterRoleBindingClient extends KubeObjectClient<KubeClusterRoleBinding>{ }
-function test(){}
-
 

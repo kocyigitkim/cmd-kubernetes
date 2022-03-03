@@ -16,3 +16,4 @@ export { KubeResourceClient } from './clients/KubeResourceClient'
 export { KubeSecretClient } from './clients/KubeSecretClient'
 export { KubeServiceClient } from './clients/KubeServiceClient'
 export { KubeStatefulSetClient } from './clients/KubeStatefulSetClient'
+export { KubePort } from './KubePort';

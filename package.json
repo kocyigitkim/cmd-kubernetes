@@ -1,6 +1,6 @@
 {
   "name": "cmd-kubernetes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/kocyigitkim/cmd-kubernetes#readme",
   "dependencies": {
-    "cmd-execute": "^1.0.0"
+    "cmd-execute": "^1.0.2"
   }
 }
