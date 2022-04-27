@@ -99,6 +99,24 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             return null;
         }
     }
+      public async getRaw(resource: string, showOutput: boolean = false): Promise<TRESOURCE> {
+        const stdout = showOutput ? this.stdout : () => { };
+        var output: KubeObjectList<TRESOURCE>;
+        await new ShellProcess({
+            path: 'kubectl',
+            args: ['get', '-o', 'json', '-f', '-'],
+            stdin: resource
+        })
+            .processJson((obj) => {
+                output = obj;
+            })
+            .run(stdout, stdout).catch(stdout as any);
+        try {
+            return output.items[0];
+        } catch (err) {
+            return null;
+        }
+    }
     public async list(namespace?: string, showOutput: boolean = false): Promise<TRESOURCE[]> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;

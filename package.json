@@ -1,6 +1,6 @@
 {
   "name": "cmd-kubernetes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "files": [
@@ -8,7 +8,7 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "concurrently \"rimraf ./dist\" \"tsc\""
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "homepage": "https://github.com/kocyigitkim/cmd-kubernetes#readme",
   "dependencies": {
     "cmd-execute": "^1.0.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "rimraf": "^3.0.2"
   }
 }
