@@ -2,26 +2,25 @@ import { KubeObject } from "../Implementations/KubeObject";
 import { KubeObjectList } from "../Implementations/KubeObjectList";
 import { ShellProcess } from "cmd-execute";
 
-
 export class KubeObjectClient<TRESOURCE extends KubeObject> {
     public readonly name;
     constructor(public stdout: Function, name: string = null) {
         this.name = name;
     }
 
-    public async create(resource: TRESOURCE, showOutput: boolean = false): Promise<TRESOURCE> {
+    public async create(resource: TRESOURCE, showOutput: boolean = false, jsonSerialize: boolean = true): Promise<TRESOURCE> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;
         await new ShellProcess({
             path: 'kubectl',
             args: ['create', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         }).run(stdout, stdout).catch(stdout as any);
 
         await new ShellProcess({
             path: 'kubectl',
             args: ['get', '-o', 'json', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         })
             .processJson((obj) => {
                 output = obj;
@@ -33,19 +32,19 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             return null;
         }
     }
-    public async apply(resource: TRESOURCE, showOutput: boolean = false): Promise<TRESOURCE> {
+    public async apply(resource: TRESOURCE, showOutput: boolean = false, jsonSerialize: boolean = true): Promise<TRESOURCE> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;
         await new ShellProcess({
             path: 'kubectl',
             args: ['apply', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         }).run(stdout, stdout).catch(stdout as any);
 
         await new ShellProcess({
             path: 'kubectl',
             args: ['get', '-o', 'json', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         })
             .processJson((obj) => {
                 output = obj;
@@ -57,19 +56,19 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             return null;
         }
     }
-    public async delete(resource: TRESOURCE, showOutput: boolean = false): Promise<TRESOURCE> {
+    public async delete(resource: TRESOURCE, showOutput: boolean = false, jsonSerialize: boolean = true): Promise<TRESOURCE> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;
         await new ShellProcess({
             path: 'kubectl',
             args: ['delete', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         }).run(stdout, stdout).catch(stdout as any);
 
         await new ShellProcess({
             path: 'kubectl',
             args: ['get', '-o', 'json', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         })
             .processJson((obj) => {
                 output = obj;
@@ -81,13 +80,13 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             return null;
         }
     }
-    public async get(resource: TRESOURCE, showOutput: boolean = false): Promise<TRESOURCE> {
+    public async get(resource: TRESOURCE, showOutput: boolean = false, jsonSerialize: boolean = true): Promise<TRESOURCE> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;
         await new ShellProcess({
             path: 'kubectl',
             args: ['get', '-o', 'json', '-f', '-'],
-            stdin: JSON.stringify(resource)
+            stdin: jsonSerialize ? JSON.stringify(resource) : resource as any
         })
             .processJson((obj) => {
                 output = obj;
