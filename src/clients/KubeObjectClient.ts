@@ -93,12 +93,15 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             })
             .run(stdout, stdout).catch(stdout as any);
         try {
+            if (!output.items) {
+                return output as any;
+            }
             return output.items[0];
         } catch (err) {
             return null;
         }
     }
-      public async getRaw(resource: string, showOutput: boolean = false): Promise<TRESOURCE> {
+    public async getRaw(resource: string, showOutput: boolean = false): Promise<TRESOURCE> {
         const stdout = showOutput ? this.stdout : () => { };
         var output: KubeObjectList<TRESOURCE>;
         await new ShellProcess({
@@ -111,6 +114,9 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             })
             .run(stdout, stdout).catch(stdout as any);
         try {
+            if (!output.items) {
+                return output as any;
+            }
             return output.items[0];
         } catch (err) {
             return null;
@@ -147,6 +153,9 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             })
             .run(stdout, stdout).catch(stdout as any);
         try {
+            if (!output.items) {
+                return output as any;
+            }
             return output.items[0];
         } catch (err) {
             return null;
@@ -171,6 +180,9 @@ export class KubeObjectClient<TRESOURCE extends KubeObject> {
             })
             .run(stdout, stdout).catch(stdout as any);
         try {
+            if (!output.items) {
+                return output as any;
+            }
             return output.items;
         } catch (err) {
             return null;
