@@ -38,12 +38,13 @@ export class KubernetesClient {
     public async ListResourceTypes(showOutput: boolean = false): Promise<KubeResourceType[]> {
         const stdout = showOutput ? this.stdout : () => { };
         var collected: KubeResourceType[] = [];
+        var isFirst = true;
         await new ShellProcess({
             path: 'kubectl',
             args: ['api-resources', '-o', 'wide'],
         })
             .processHeaderList((match, line, isFirstLine) => {
-                if (!isFirstLine) {
+                if (!isFirst) {
                     collected.push(new KubeResourceType({
                         Name: match[0],
                         ShortNames: match[1],
@@ -53,6 +54,7 @@ export class KubernetesClient {
                         Verbs: match[5],
                     }));
                 }
+                isFirst = false;
             })
             .run(stdout, stdout).catch(stdout as any);
         try {
